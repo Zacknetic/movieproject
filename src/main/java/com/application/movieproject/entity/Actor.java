@@ -19,4 +19,6 @@ public class Actor {
     @Column(name = "description", length = 250, nullable = false)
     private String description;
 
+    @ManyToMany(mappedBy = "actors", cascade = CascadeType.ALL)
+    private Set<Movie> movies = new HashSet<>();
 }

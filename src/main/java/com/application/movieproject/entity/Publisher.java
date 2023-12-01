@@ -2,6 +2,9 @@ package com.application.movieproject.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "publishers")
 public class Publisher {
@@ -12,4 +15,7 @@ public class Publisher {
 
     @Column(name = "name", length = 100, nullable = false, unique = true)
     private String name;
+
+    @ManyToMany(mappedBy = "publishers", cascade = CascadeType.ALL)
+    private Set<Movie> movies = new HashSet<>();
 }

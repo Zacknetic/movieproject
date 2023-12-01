@@ -2,6 +2,9 @@ package com.application.movieproject.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "movies")
 public class Movie {
@@ -16,6 +19,22 @@ public class Movie {
     @Column(name = "description", length = 1000, nullable = false)
     private String description;
 
-    @Column(name = "duration_minutes", length = 5, nullable = false)
-    private int duration_minutes;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "movies_actors", joinColumns = {@JoinColumn(name = "movie_id")}, inverseJoinColumns = {@JoinColumn(name = "actor_id")})
+    private Set<Actor> actors = new HashSet<Actor>();
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "movies_genres", joinColumns = {@JoinColumn(name = "movie_id")}, inverseJoinColumns = {@JoinColumn(name = "genre_id")})
+    private Set<Genre> genres = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "movies_publishers", joinColumns = {@JoinColumn(name = "movie_id")}, inverseJoinColumns = {@JoinColumn(name = "publisher_id")})
+    private Set<Publisher> publishers = new HashSet<>();
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "movie_links", joinColumns = {@JoinColumn(name = "movie_id")}, inverseJoinColumns = {@JoinColumn(name = "link_id")})
+    private Set<Link> links = new HashSet<>();
+
+    @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL)
+    private MetaData metaData;
 }
