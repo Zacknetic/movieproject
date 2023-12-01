@@ -23,6 +23,6 @@ public class Genre {
     @Column(name = "name", length = 100, nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "genres", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "genres", cascade = CascadeType.MERGE)
     private Set<Movie> movies = new HashSet<>();
 }

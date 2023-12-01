@@ -2,13 +2,20 @@ package com.application.movieproject.service;
 
 import com.application.movieproject.entity.Actor;
 import com.application.movieproject.repository.ActorRepository;
+import com.application.movieproject.repository.GenreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ActorService {
-    private ActorRepository actorRepository;
+    private final ActorRepository actorRepository;
+
+    @Autowired
+    public ActorService(ActorRepository actorRepository) {
+        this.actorRepository = actorRepository;
+    }
 
     public List<Actor> findAllActors() {
         return actorRepository.findAll();
@@ -18,7 +25,7 @@ public class ActorService {
         return actorRepository.findById(id).orElseThrow(() -> new RuntimeException("Actor with id (" + id + ") not found."));
     }
 
-    public void createActor(Actor actor) {
+    public void addActor(Actor actor) {
         actorRepository.save(actor);
     }
 

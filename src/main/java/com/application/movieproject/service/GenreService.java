@@ -2,13 +2,20 @@ package com.application.movieproject.service;
 
 import com.application.movieproject.entity.Genre;
 import com.application.movieproject.repository.GenreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class GenreService {
-    private GenreRepository genreRepository;
+
+    private final GenreRepository genreRepository;
+
+    @Autowired
+    public GenreService(GenreRepository genreRepository) {
+        this.genreRepository = genreRepository;
+    }
 
     public List<Genre> findAllGenres() {
         return genreRepository.findAll();
@@ -18,7 +25,7 @@ public class GenreService {
         return genreRepository.findById(id).orElseThrow(() -> new RuntimeException("Genre with id (" + id + ") not found."));
     }
 
-    public void createGenre(Genre genre) {
+    public void addGenre(Genre genre) {
         genreRepository.save(genre);
     }
 

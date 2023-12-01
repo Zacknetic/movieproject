@@ -27,6 +27,6 @@ public class Actor {
     @Column(name = "description", length = 250, nullable = false)
     private String description;
 
-    @ManyToMany(mappedBy = "actors", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "actors", cascade = CascadeType.MERGE)
     private Set<Movie> movies = new HashSet<>();
 }

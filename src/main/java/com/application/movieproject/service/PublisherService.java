@@ -1,14 +1,22 @@
 package com.application.movieproject.service;
 
 import com.application.movieproject.entity.Publisher;
+import com.application.movieproject.repository.GenreRepository;
 import com.application.movieproject.repository.PublisherRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class PublisherService {
-    private PublisherRepository publisherRepository;
+
+    private final PublisherRepository publisherRepository;
+
+    @Autowired
+    public PublisherService(PublisherRepository publisherRepository) {
+        this.publisherRepository = publisherRepository;
+    }
 
     public List<Publisher> findAllPublishers() {
         return publisherRepository.findAll();
@@ -18,7 +26,7 @@ public class PublisherService {
         return publisherRepository.findById(id).orElseThrow(() -> new RuntimeException("Publisher with id (" + id + ") not found."));
     }
 
-    public void createPublisher(Publisher publisher) {
+    public void addPublisher(Publisher publisher) {
         publisherRepository.save(publisher);
     }
 

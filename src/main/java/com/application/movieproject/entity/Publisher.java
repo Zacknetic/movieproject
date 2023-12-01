@@ -23,6 +23,6 @@ public class Publisher {
     @Column(name = "name", length = 100, nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "publishers", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "publishers", cascade = CascadeType.MERGE)
     private Set<Movie> movies = new HashSet<>();
 }
