@@ -1,10 +1,16 @@
 package com.application.movieproject.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "movies")
 public class Movie {
@@ -21,7 +27,7 @@ public class Movie {
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "movies_actors", joinColumns = {@JoinColumn(name = "movie_id")}, inverseJoinColumns = {@JoinColumn(name = "actor_id")})
-    private Set<Actor> actors = new HashSet<Actor>();
+    private Set<Actor> actors = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "movies_genres", joinColumns = {@JoinColumn(name = "movie_id")}, inverseJoinColumns = {@JoinColumn(name = "genre_id")})
