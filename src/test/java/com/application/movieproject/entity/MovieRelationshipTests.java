@@ -3,14 +3,18 @@ package com.application.movieproject.entity;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.application.movieproject.repository.MovieRepository;
+import com.application.movieproject.service.MovieService;
+import com.application.movieproject.service.MovieSpecifications;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @DataJpaTest
 public class MovieRelationshipTests {
@@ -43,7 +47,7 @@ public class MovieRelationshipTests {
     }
 
     @Test
-    public void testMovieRelatonship() {
+    public void testMovieRelationship() {
         Movie savedMovie = movieRepository.save(testMovie);
 
         assertNotNull(savedMovie.getId());
@@ -86,6 +90,34 @@ public class MovieRelationshipTests {
         assertNull(entityManager.find(Movie.class, savedMovie.getId()));
         assertNull(entityManager.find(MetaData.class, metaDataId));
     }
+
+    @Test
+    public void testFindMoviesByDurationRangeUsingSpecification() {
+        // Save test data
+        movieRepository.save(testMovie);
+
+        // Additional movies to cover different duration scenarios
+        // ...
+
+        // Create specification for duration range
+        Specification<Movie> durationSpec = MovieSpecifications.isWithinRangeInDetails(
+                90, // min duration
+                120, // max duration
+                root -> root.join("metaData").get("duration_minutes")
+        );
+
+        // Use the specification to find movies
+        List<Movie> movies = movieRepository.findAll(durationSpec);
+
+        // Assertions
+        assertFalse(movies.isEmpty(), "No movies found within the specified duration range");
+        for (Movie movie : movies) {
+            int duration = movie.getMetaData().getDuration_minutes();
+            assertTrue(duration >= 90 && duration <= 120, "Movie duration is outside the specified range");
+        }
+    }
+
+
 
     // Add more tests to cover other aspects as needed...
 }
