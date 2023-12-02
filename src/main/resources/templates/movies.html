@@ -39,7 +39,7 @@
                             <tr th:each="movies : ${movies}">
                                 <td th:text="${movies.title}"></td>
                                 <td th:text="${movies.description}"></td>
-                                <td><a th:href="@{/movie/{id}(id=${movie.id})}" class="btn btn-primary"><i
+                                <td><a th:href="@{/movie/{id}(id=${movies.id})}" class="btn btn-primary"><i
                                         class="fas fa-eye ml-2"></i></a></td>
                                 <td><a th:href="@{/update-movie/{id}(id=${movies.id})}" class="btn btn-primary"><i
                                         class="fas fa-edit ml-2"></i></a></td>
