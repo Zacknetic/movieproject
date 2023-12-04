@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -11,70 +12,75 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 
 </head>
-
-<body>
 <div th:insert="fragments/header :: header"></div>
 <div class="container my-2">
-    <div class="card">
-        <div class="card-body">
-
-            <form action="#" th:action="@{/save-movie/{id}(id=${movie.id})}" th:object="${movie}" method="post">
-                <div class="row">
-
-                    <div class="form-group col-md-8">
-                        <label for="title" class="col-form-label">Movie Title</label>
-                        <input type="text" th:field="*{title}" class="form-control" id="title"
-                               placeholder="Movie Title"/>
-                    </div>
-
-                    <div class="form-group col-md-8">
-                        <label for="name" class="col-form-label">Genres</label>
-                        <select th:field="*{genres}" class="form-control" multiple="multiple">
-                            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-8">
-                        <label for="name" class="col-form-label">Actors</label>
-                        <select th:field="*{actors}" class="form-control" multiple="multiple">
-                            <option th:each="actor : ${actors}" th:value="${actor.id}" th:text="${actor.name}"></option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-8">
-                        <label for="name" class="col-form-label">Publishers</label>
-                        <select th:field="*{publishers}" class="form-control" multiple="multiple">
-                            <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}"></option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-8">
-                        <label for="description" class="col-form-label">Movie Description</label>
-                        <input type="text" th:field="*{description}" class="form-control" id="description"
-                               placeholder="Movie Description"/>
-                    </div>
-
-                    <div class="form-group col-md-8">
-                        <label for="duration_minutes" class="col-form-label">Duration (minutes)</label>
-                        <input type="text" th:field="*{metaData.duration_minutes}" class="form-control" id="duration_minutes"
-                               placeholder="Duration (minutes)"/>
-                    </div>
-
-                    <div class="form-group col-md-8">
-                        <label for="releaseDate" class="col-form-label">Release Date</label>
-                        <input type="date" th:field="*{metaData.releaseDate}" class="form-control" id="releaseDate"
-                               placeholder="Release Date"/>
-                    </div>
-
-
-                    <div class="col-md-6">
-                        <input type="submit" class="btn btn-primary" value=" Submit ">
-                    </div>
-
-                </div>
-            </form>
+    <form action="/updateMovie" method="post">
+        <!-- Movie Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" th:field="*{movie.title}">
         </div>
-    </div>
+
+        <!-- Genres -->
+        <div class="form-group col-md-8">
+            <label for="name" class="col-form-label">Genres</label>
+            <select th:field="*{genres}" class="form-control" multiple="multiple">
+                <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+            </select>
+        </div>
+
+        <!-- Actors -->
+        <div class="form-group col-md-8">
+            <label for="name" class="col-form-label">Actors</label>
+            <select th:field="*{actors}" class="form-control" multiple="multiple">
+                <option th:each="actor : ${actors}" th:value="${actor.id}" th:text="${actor.name}"></option>
+            </select>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" th:field="*{movie.description}"></textarea>
+        </div>
+
+        <!-- Duration -->
+        <div class="mb-3">
+            <label for="duration" class="form-label">Duration (minutes)</label>
+            <input type="number" class="form-control" id="duration" th:field="*{movie.metaData.duration_minutes}">
+        </div>
+
+        <!-- Release Date -->
+        <div class="mb-3">
+            <label for="releaseDate" class="form-label">Release Date</label>
+            <input type="date" class="form-control" id="releaseDate" th:field="*{movie.metaData.releaseDate}">
+        </div>
+
+        <!-- Language -->
+        <div class="mb-3">
+            <label for="language" class="form-label">Language</label>
+            <input type="text" class="form-control" id="language" th:field="*{movie.metaData.language}">
+        </div>
+
+        <!-- Budget -->
+        <div class="mb-3">
+            <label for="budget" class="form-label">Budget</label>
+            <input type="number" class="form-control" id="budget" th:field="*{movie.metaData.budget}">
+        </div>
+
+        <!-- Box Office Revenue -->
+        <div class="mb-3">
+            <label for="boxOfficeRevenue" class="form-label">Box Office Revenue</label>
+            <input type="number" class="form-control" id="boxOfficeRevenue" th:field="*{movie.metaData.boxOfficeRevenue}">
+        </div>
+
+        <!-- Country of Origin -->
+        <div class="mb-3">
+            <label for="countryOfOrigin" class="form-label">Country of Origin</label>
+            <input type="text" class="form-control" id="countryOfOrigin" th:field="*{movie.metaData.countryOfOrigin}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Movie</button>
+    </form>
 </div>
 </body>
 </html>
