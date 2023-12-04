@@ -36,4 +36,15 @@ public class MovieController {
         model.addAttribute("movies", movieService.findAllMovies());
         return "movies";
     }
+
+    @GetMapping("/edit-movie/{id}")
+    public String editMovie(@PathVariable Long id, Model model) {
+        Movie movie = movieService.findMovieById(id);
+
+    }
+
+    @GetMapping("/save-movie/{id}")
+    public String saveMovie(@PathVariable Long id, Model model) {
+
+    }
 }
